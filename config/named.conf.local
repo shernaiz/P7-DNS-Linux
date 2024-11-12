@@ -1,0 +1,10 @@
+zone "servidor.com" {
+    type master;
+    file "/home/sandra/P7/conf/db.example.com";
+};
+
+zone "5.28.172.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.172";
+};
+

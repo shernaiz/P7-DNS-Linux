@@ -1,0 +1,38 @@
+services:
+  servidor:
+    image: internetsystemsconsortium/bind9:9.20
+    container_name: servidor_bind
+    restart: always
+    ports:
+      - "54:54/tcp"
+      - "54:54/udp"
+      - "127.0.0.1:953:953/tcp"
+    networks:
+      red_p7:
+        ipv4_address: 172.28.5.1
+    volumes:
+      - ./conf:/home/sandra/P7/conf
+      - ./zonas:/home/sandra/P7/zonas
+  cliente:
+    container_name: cliente_alpine
+    image: alpine:latest
+    tty: true
+    stdin_open: true
+    dns:
+      - 172.28.5.1
+    networks:
+      red_p7:
+        ipv4_address: 172.28.5.2
+
+networks:
+  red_p7:
+    driver: bridge
+    name: red_p7
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          ip_range: 172.28.5.0/24
+          gateway: 172.28.5.254
+
+
+
